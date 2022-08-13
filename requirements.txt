@@ -1,0 +1,8 @@
+pandas
+numpy
+matplotlib
+opencv-python-headless
+pyyaml
+perlin-noise
+tqdm
+pydantic

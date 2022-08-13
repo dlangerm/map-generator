@@ -1,0 +1,65 @@
+biomes:
+  - name: tundra
+    temperature_range_f:
+      - -100
+      - 10
+    soil_types:
+      - soil_type: ice
+        percent: 100
+    light_range_lux:
+      - 0
+      - 100
+    rainfall_in:
+      - 0
+      - 30
+  - name: grassland
+    temperature_range_f:
+      - 32
+      - 100
+    soil_types:
+      - soil_type: grass
+        percent: 100
+    light_range_lux:
+      - 50
+      - 100
+    rainfall_in:
+      - 10
+      - 40
+  - name: marine
+    temperature_range_f:
+      - 32
+      - 100
+    soil_types:
+      - soil_type: water
+        percent: 100
+    light_range_lux:
+      - 50
+      - 100
+    rainfall_in:
+      - 30
+      - 100
+
+rules:
+  - vector_field: heightmap_m
+    property_name: temperature_f
+    conditions:
+      - op: eq
+        value: 10
+    satisfied_value: 0
+    unsatisfied_value: 33
+
+vector_fields:
+  - name: heightmap_m
+    noise_type: perlin
+    noise_params:
+      size:
+        - 300
+        - 300
+      levels: 5
+      seed: 42
+    norm_max: 1000
+    norm_min: 0
+
+world_params:
+  width: 300
+  height: 300
