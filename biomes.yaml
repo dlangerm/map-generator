@@ -40,26 +40,145 @@ biomes:
       - 100
 
 rules:
+# LATITUDE RULES #
+  - vector_field: latitude
+    property_name: temperature_f
+    satisfaction_mode: any
+    conditions:
+      - op: gt
+        value: 80
+      - op: lt
+        value: -80
+    satisfied_value: 0
+    weight: 0.9
+
+  - vector_field: latitude
+    property_name: temperature_f
+    conditions:
+      - op: lt
+        value: 70
+      - op: gt
+        value: -70
+    satisfied_value: 10
+    weight: 0.8
+
+  - vector_field: latitude
+    property_name: temperature_f
+    conditions:
+      - op: gt
+        value: -60
+      - op: lt
+        value: 60
+    satisfied_value: 20
+    weight: 0.5
+
+  - vector_field: latitude
+    property_name: temperature_f
+    conditions:
+      - op: gt
+        value: -45
+      - op: lt
+        value: 45
+    satisfied_value: 30
+    weight: 0.5
+
+  - vector_field: latitude
+    property_name: temperature_f
+    conditions:
+      - op: gt
+        value: -30
+      - op: lt
+        value: 30
+    satisfied_value: 60
+    weight: 0.5
+
+  # tropics
+  - vector_field: latitude
+    property_name: temperature_f
+    satisfaction_mode: all
+    conditions:
+      - op: lt
+        value: 15
+      - op: gt
+        value: -15
+    satisfied_value: 80
+    weight: 0.5
+
+# HEIGHT RULES
   - vector_field: heightmap_m
     property_name: temperature_f
     conditions:
-      - op: eq
-        value: 10
+      - op: ge
+        value: -100
+      - op: lt
+        value: 400
+    satisfied_value: 60
+    weight: 0.2
+
+  - vector_field: heightmap_m
+    property_name: temperature_f
+    conditions:
+      - op: ge
+        value: 400
+      - op: lt
+        value: 600
+    satisfied_value: 60
+    weight: 0.3
+
+  - vector_field: heightmap_m
+    property_name: temperature_f
+    conditions:
+      - op: ge
+        value: 600
+      - op: lt
+        value: 800
+    satisfied_value: 40
+    weight: 0.5
+
+  - vector_field: heightmap_m
+    property_name: temperature_f
+    conditions:
+      - op: ge
+        value: 800
+      - op: lt
+        value: 900
     satisfied_value: 0
-    unsatisfied_value: 33
+    weight: 0.5
+
+  - vector_field: heightmap_m
+    property_name: temperature_f
+    conditions:
+      - op: ge
+        value: 900
+    satisfied_value: -10
+    weight: 0.9
+
 
 vector_fields:
   - name: heightmap_m
     noise_type: perlin
     noise_params:
       size:
-        - 300
-        - 300
+        - 90
+        - 90
       levels: 5
-      seed: 42
+      seed: 22
     norm_max: 1000
-    norm_min: 0
+    norm_min: -10
+  - name: latitude
+    noise_type: sin
+    noise_params:
+      size:
+        - 90
+        - 90
+      transpose: no
+      amplitude: 90
+      frequency: 0.2
+      vertical_shift: 0
+      horizontal_shift: 3.14
+    norm_max: 90
+    norm_min: -90
 
 world_params:
-  width: 300
-  height: 300
+  width: 90
+  height: 90
