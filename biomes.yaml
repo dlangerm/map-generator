@@ -47,47 +47,45 @@ rules:
     conditions:
       - op: gt
         value: 80
-      - op: lt
-        value: -80
     satisfied_value: 0
     weight: 0.9
 
   - vector_field: latitude
     property_name: temperature_f
     conditions:
-      - op: lt
-        value: 70
+      - op: le
+        value: 80
       - op: gt
-        value: -70
+        value: 70
     satisfied_value: 10
     weight: 0.8
 
   - vector_field: latitude
     property_name: temperature_f
     conditions:
+      - op: le
+        value: 70
       - op: gt
-        value: -60
-      - op: lt
         value: 60
-    satisfied_value: 20
-    weight: 0.5
-
-  - vector_field: latitude
-    property_name: temperature_f
-    conditions:
-      - op: gt
-        value: -45
-      - op: lt
-        value: 45
     satisfied_value: 30
     weight: 0.5
 
   - vector_field: latitude
     property_name: temperature_f
     conditions:
+      - op: le
+        value: 60
       - op: gt
-        value: -30
-      - op: lt
+        value: 40
+    satisfied_value: 50
+    weight: 0.5
+
+  - vector_field: latitude
+    property_name: temperature_f
+    conditions:
+      - op: le
+        value: 40
+      - op: gt
         value: 30
     satisfied_value: 60
     weight: 0.5
@@ -95,63 +93,60 @@ rules:
   # tropics
   - vector_field: latitude
     property_name: temperature_f
-    satisfaction_mode: all
     conditions:
-      - op: lt
-        value: 15
-      - op: gt
-        value: -15
+      - op: le
+        value: 30
     satisfied_value: 80
     weight: 0.5
 
 # HEIGHT RULES
-  - vector_field: heightmap_m
-    property_name: temperature_f
-    conditions:
-      - op: ge
-        value: -100
-      - op: lt
-        value: 400
-    satisfied_value: 60
-    weight: 0.2
+  # - vector_field: heightmap_m
+  #   property_name: temperature_f
+  #   conditions:
+  #     - op: ge
+  #       value: -100
+  #     - op: lt
+  #       value: 400
+  #   satisfied_value: 60
+  #   weight: 0.2
 
-  - vector_field: heightmap_m
-    property_name: temperature_f
-    conditions:
-      - op: ge
-        value: 400
-      - op: lt
-        value: 600
-    satisfied_value: 60
-    weight: 0.3
+  # - vector_field: heightmap_m
+  #   property_name: temperature_f
+  #   conditions:
+  #     - op: ge
+  #       value: 400
+  #     - op: lt
+  #       value: 600
+  #   satisfied_value: 60
+  #   weight: 0.3
 
-  - vector_field: heightmap_m
-    property_name: temperature_f
-    conditions:
-      - op: ge
-        value: 600
-      - op: lt
-        value: 800
-    satisfied_value: 40
-    weight: 0.5
+  # - vector_field: heightmap_m
+  #   property_name: temperature_f
+  #   conditions:
+  #     - op: ge
+  #       value: 600
+  #     - op: lt
+  #       value: 800
+  #   satisfied_value: 40
+  #   weight: 0.5
 
-  - vector_field: heightmap_m
-    property_name: temperature_f
-    conditions:
-      - op: ge
-        value: 800
-      - op: lt
-        value: 900
-    satisfied_value: 0
-    weight: 0.5
+  # - vector_field: heightmap_m
+  #   property_name: temperature_f
+  #   conditions:
+  #     - op: ge
+  #       value: 800
+  #     - op: lt
+  #       value: 900
+  #   satisfied_value: 0
+  #   weight: 0.5
 
-  - vector_field: heightmap_m
-    property_name: temperature_f
-    conditions:
-      - op: ge
-        value: 900
-    satisfied_value: -10
-    weight: 0.9
+  # - vector_field: heightmap_m
+  #   property_name: temperature_f
+  #   conditions:
+  #     - op: ge
+  #       value: 900
+  #   satisfied_value: -10
+  #   weight: 0.9
 
 
 vector_fields:
@@ -175,9 +170,9 @@ vector_fields:
       amplitude: 90
       frequency: 0.2
       vertical_shift: 0
-      horizontal_shift: 3.14
+      horizontal_shift: 0 #-3.14
     norm_max: 90
-    norm_min: -90
+    norm_min: 0
 
 world_params:
   width: 90

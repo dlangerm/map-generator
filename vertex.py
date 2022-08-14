@@ -154,12 +154,14 @@ class PhysicalRule(BaseModel):
         satisfied_values = np.ones_like(
             field,
             dtype=int
-        ) * self.satisfied_value if self.satisfied_value is not None else field
+        ) * self.satisfied_value if self.satisfied_value is not None \
+            else np.empty_like(field)
 
         unsatisfied_values = np.ones_like(
             field,
             dtype=int
-        ) * self.unsatisfied_value if self.unsatisfied_value is not None else field
+        ) * self.unsatisfied_value if self.unsatisfied_value is not None \
+            else np.empty_like(field)
 
         # tuple of property name, weight, and the field we evaluated
         mask = self._pointwise_evaluate_all(field) \
@@ -169,13 +171,14 @@ class PhysicalRule(BaseModel):
         affected_cells = mask.copy()
 
         # mask should only cover where satisfied
-        if self.unsatisfied_value is None and self.satisfied_value is None:
+        if self.unsatisfied_value is None \
+            and self.satisfied_value is None:
             raise ValueError(
                 "either an unsatisfied or satisfied value must be chosen"
             )
         elif self.satisfied_value is None:
             # only unsatisfied
-            affected_cells = ~mask
+            affected_cells = ~affected_cells
         elif self.unsatisfied_value is not None:
             # both are affected
             affected_cells.fill(True)
@@ -296,6 +299,7 @@ class BiomeCollection(BaseModel):
             weighted_average /= final_weight_mask.sum(
                 axis=0
             )
+            assert np.all(np.isfinite(weighted_average))
 
             self._parameter_fields[key] = weighted_average.data
 
